@@ -1,4 +1,5 @@
-import Button from "@/components/ui/button";
+import { setOnboarded } from "@/features/onboarding/slices/onboarded";
+import { useAppDispatch } from "@/store/hooks/hooks";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Button from "../../components/ui/button";
 
 const intros = [
   {
@@ -46,11 +48,19 @@ const styles = StyleSheet.create({
 });
 
 const Onboarding = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [currentIntro, setCurrentIntro] = useState(0);
+
+  // Store onboarding completion
+  const completeOnboarding = async () => {
+    dispatch(setOnboarded(true));
+    router.replace("/(auth)/signup");
+  };
+
   const handleContinue = () => {
     if (currentIntro === intros.length - 1) {
-      router.push("/(registration)");
+      completeOnboarding();
     } else {
       setCurrentIntro((prev) => prev + 1);
     }
@@ -96,7 +106,6 @@ const Onboarding = () => {
       </View>
 
       {/* Intro content */}
-
       <View>
         <View className="w-25 h-25 -mb-9">
           <Image source={intros[currentIntro].image} className="" />
@@ -129,8 +138,7 @@ const Onboarding = () => {
           </Text>
         </View>
       </View>
-      <Button title="Continue" width="60%" onPress={handleContinue} />
-      {/* </View> */}
+      <Button width="60%" onPress={handleContinue} />
     </SafeAreaView>
   );
 };

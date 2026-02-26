@@ -1,14 +1,19 @@
+import { useAppSelector } from "@/store/hooks/hooks";
 import { Redirect } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 
-function Index() {
-  return <Redirect href={"/(onboarding)"} />;
-}
-
-export default function RootIndex() {
-  return (
-    <SafeAreaView>
-      <Index />
-    </SafeAreaView>
+export default function Index() {
+  const { onboarded, hydrated } = useAppSelector(
+    (state) => state.userOnboarded,
   );
+
+  if (!hydrated) {
+    return <View />;
+  }
+
+  if (!onboarded) {
+    return <Redirect href="/(onboarding)" />;
+  }
+
+  return <Redirect href="/(auth)" />;
 }
