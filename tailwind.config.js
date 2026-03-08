@@ -5,6 +5,7 @@ module.exports = {
     "./App.{js,jsx,ts,tsx}",
     "./app/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./features/**/*.{js,jsx,ts,tsx}",
   ],
   presets: [require("nativewind/preset")],
   theme: {
@@ -16,9 +17,14 @@ module.exports = {
         white: "#FFFFFF",
         lightGray: "#ADADAD",
         progress: "#D9D9D9",
+        lightBg: "#E6E6E6",
+        keypadText: "#8B8B8B",
+        error: "#FF3838",
       },
       fontFamily: {
         Poppins: ["Poppins", "sans-serif"],
+        PoppinsSemi: ["PoppinsSemi"],
+        PoppinsBold: ["PoppinsBold", "sans-serif"],
         Serif: ["InstrumentSerif"],
         SerifItalic: ["InstrumentSerifItalic"],
         Sans: ["InstrumentSans"],
